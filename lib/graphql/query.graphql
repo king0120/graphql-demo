@@ -1,6 +1,9 @@
 mutation startNewGame {
-    startGame(id: 1){
-        id
+    joinGame(playerName: "Jim", gameId: "5b0581a7e970f31af36a2e25"){
+        _id
+        players {
+            name
+        }
     }
 }
 

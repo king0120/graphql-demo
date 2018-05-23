@@ -1,12 +1,12 @@
 type Player {
-    id: ID!
+    _id: ID!
     name: String
     color: String
     points: Int
 }
 
 type Game {
-    id: ID!
+    _id: ID!
     players: [Player]
     started: Boolean
 }
@@ -25,5 +25,10 @@ type Query {
 }
 
 type Mutation {
-    startGame(id: ID!): Game
+    newGame(playerName: String!): Game
+    joinGame(playerName: String!, gameId: ID!): Game
+}
+
+type Subscription {
+    playerJoined(gameId: ID!): Player
 }
