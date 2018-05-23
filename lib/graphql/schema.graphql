@@ -22,6 +22,7 @@ type Question {
 
 type Query {
     trivia(limit: Int): [Question]
+    games: [Game]
 }
 
 type Mutation {

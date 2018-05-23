@@ -1,5 +1,5 @@
 mutation startNewGame {
-    joinGame(playerName: "qwertyh", gameId: "5b0581a7e970f31af36a2e25"){
+    joinGame(playerName: "Queries", gameId: "5b0581a7e970f31af36a2e25"){
         _id
         players {
             name
