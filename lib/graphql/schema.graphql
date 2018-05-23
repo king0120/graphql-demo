@@ -1,6 +1,14 @@
-type Query {
-    books: [Book]
-    trivia(limit: Int): [Question]
+type Player {
+    id: ID!
+    name: String
+    color: String
+    points: Int
+}
+
+type Game {
+    id: ID!
+    players: [Player]
+    started: Boolean
 }
 
 type Question {
@@ -12,4 +20,10 @@ type Question {
     incorrect_answers: [String]
 }
 
-type Book { title: String, author: String }
+type Query {
+    trivia(limit: Int): [Question]
+}
+
+type Mutation {
+    startGame(id: ID!): Game
+}

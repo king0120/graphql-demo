@@ -31,6 +31,10 @@ class App extends Component {
         <header>
           <Header>GraphHQ</Header>
         </header>
+        <div>
+          <h3>Enter Your Name</h3>
+          <input />
+        </div>
         <Button variant="raised" color="primary">
           Create a New Room
         </Button>
