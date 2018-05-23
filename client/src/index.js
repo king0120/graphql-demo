@@ -7,7 +7,17 @@ import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 import gql from 'graphql-tag'
 
+import { WebSocketLink } from 'apollo-link-ws'
+
+const wsLink = new WebSocketLink({
+  uri: `ws://localhost:3001/subscriptions`,
+  options: {
+    reconnect: true
+  }
+})
+
 const client = new ApolloClient({
+  link: wsLink,
   uri: 'http://localhost:3001/graphql'
 })
 
