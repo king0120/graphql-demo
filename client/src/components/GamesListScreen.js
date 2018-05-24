@@ -38,13 +38,12 @@ const GamesListScreen = (props) => {
         if (error) return `Error! ${error.message}`
 
         const { games } = data
-        console.log(props)
         return (
           <div>
             <Header title={'Join A Game'}/>
 
             {games.map(game => (
-              <StyledCard>
+              <StyledCard key={game._id}>
                 <CardContent>
                   <div>
                     <h2>
