@@ -1,20 +1,11 @@
-#mutation startNewGame {
-#    joinGame(playerName: "jim", gameId: "5b05c8f1bcb4373828572867"){
-#        _id
-#        players {
-#            name
-#        }
-#    }
-#}
-
-
-{
-    getGame(_id: "5b06cc624a1a830db4ef83ed"){
-#    games {
+mutation startNewGame {
+    joinGame(playerName: "qwerqewrq", gameId: "5b06cc624a1a830db4ef83ed"){
         _id
         players {
             name
         }
     }
 }
+
+
 

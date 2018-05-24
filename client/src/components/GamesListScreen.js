@@ -6,6 +6,7 @@ import Card from '@material-ui/core/es/Card/Card'
 import styled from 'styled-components'
 import Button from '@material-ui/core/es/Button/Button'
 import Header from './common/Header'
+import JoinGameButton from './JoinGameButton'
 
 const StyledCard = styled(Card)`
   width: calc(100% - 30px);
@@ -53,7 +54,11 @@ const GamesListScreen = (props) => {
                       Players: {game.players.length}/4
                     </h4>
                   </div>
-                  <Button >Join Game</Button>
+                  {game.players.length < 4
+                    ? <JoinGameButton game={game}/>
+                    : null
+                  }
+
                 </CardContent>
               </StyledCard>
             ))}

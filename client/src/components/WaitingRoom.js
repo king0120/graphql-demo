@@ -22,7 +22,7 @@ const GET_GAME = gql`
         }    
     }
 `
-const GameScreen = (props) => {
+const WaitingRoom = (props) => {
   return (
     <Query query={GET_GAME} variables={{ _id: props.match.params.gameId }}>
       { ({ loading, error, data }) => {
@@ -62,4 +62,4 @@ const GameScreen = (props) => {
   )
 }
 
-export default GameScreen
+export default WaitingRoom

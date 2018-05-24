@@ -1,9 +1,13 @@
 import React from 'react'
-import { gql } from 'graphql-tag'
+import gql from 'graphql-tag'
+import { Mutation } from 'react-apollo'
+import faker from 'faker'
+import Button from '@material-ui/core/es/Button/Button'
+import { withRouter } from 'react-router-dom'
 
 const JOIN_GAME = gql`
-    mutation joinGame {
-        joinGame(playerName: "jim", gameId: "5b05c8f1bcb4373828572867"){
+    mutation joinGame($playerName: String!, $gameId: ID!) {
+        joinGame(playerName: $playerName, gameId: $gameId){
             _id
             players {
                 name
@@ -12,13 +16,25 @@ const JOIN_GAME = gql`
     }
 `
 
-const JoinGameButton = () => {
+const JoinGameButton = ({ game, history }) => {
 
   return (
-    <div>
-
-    </div>
+    <Mutation mutation={JOIN_GAME}>
+      {(joinGame, { data }) => (
+        <Button
+          onClick={() => {
+            joinGame({
+              variables: {
+                gameId: game._id,
+                playerName: faker.internet.userName()
+              }
+            })
+            history.push('/room/' + game._id)
+          }}
+        >Join Game</Button>
+      )}
+    </Mutation>
   )
 }
 
-export default JoinGameButton
+export default withRouter(JoinGameButton)
