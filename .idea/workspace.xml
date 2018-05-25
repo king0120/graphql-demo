@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b1946542-1711-4d49-b87c-7e90adc717d8" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/components/WaitingRoom.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/GameScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/GameScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/GamesListScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/GamesListScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/JoinGameButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/JoinGameButton.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/graphql/query.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/lib/graphql/query.graphql" afterDir="false" />
-    </list>
+    <list default="true" id="b1946542-1711-4d49-b87c-7e90adc717d8" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -265,12 +253,12 @@
       <workItem from="1527028199770" duration="3142000" />
       <workItem from="1527078887086" duration="11479000" />
       <workItem from="1527091784398" duration="10536000" />
-      <workItem from="1527171278803" duration="4898000" />
+      <workItem from="1527171278803" duration="5041000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36193000" />
+    <option name="totallyTimeSpent" value="36336000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
