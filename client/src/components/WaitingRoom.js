@@ -3,6 +3,7 @@ import Header from './common/Header'
 import { Query, Subscription } from 'react-apollo'
 import gql from 'graphql-tag'
 import Button from '@material-ui/core/es/Button/Button'
+import StartGameButton from "./StartGameButton";
 
 const PLAYER_ADDED = gql`
     subscription playerAdded($gameId: ID!){
@@ -51,7 +52,7 @@ const WaitingRoom = (props) => {
                       <li key={i}>{player.name}</li>
                     ))}
                   </ul>
-                  <Button>Start Game</Button>
+                    <StartGameButton gameId={props.match.params.gameId}/>
                 </div>
               )
             }}

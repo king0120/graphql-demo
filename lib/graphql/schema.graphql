@@ -29,6 +29,7 @@ type Query {
 type Mutation {
     newGame(playerName: String!): Game
     joinGame(playerName: String!, gameId: ID!): Game
+    startGame(gameId: ID!): Game
 }
 
 type Subscription {
