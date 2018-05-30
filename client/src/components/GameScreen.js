@@ -60,14 +60,11 @@ const GAME_DATA = gql`
 
 class GameScreen extends React.Component {
     state = {
-      countdown: 10,
-      playerName: ''
+      countdown: 10
     }
 
     componentDidMount() {
       this.intervalId = setInterval(this.timer, 1000)
-      const playerName = localStorage.getItem('player-name')
-      this.setState({playerName})
     }
 
     timer = () => {
