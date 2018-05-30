@@ -2,7 +2,6 @@ import React from 'react'
 import Header from './common/Header'
 import { Query, Subscription } from 'react-apollo'
 import gql from 'graphql-tag'
-import Button from '@material-ui/core/es/Button/Button'
 import StartGameButton from "./StartGameButton";
 
 const PLAYER_ADDED = gql`

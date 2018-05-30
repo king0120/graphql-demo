@@ -10,7 +10,7 @@ const JOIN_GAME = gql`
         joinGame(playerName: $playerName, gameId: $gameId){
             _id
             players {
-                name
+                _id
             }
         }
     }
@@ -23,12 +23,14 @@ const JoinGameButton = ({ game, history }) => {
       {(joinGame, { data }) => (
         <Button
           onClick={() => {
+            const playerName = faker.internet.userName()
             joinGame({
               variables: {
                 gameId: game._id,
-                playerName: faker.internet.userName()
+                playerName
               }
             })
+            localStorage.setItem('player-name', playerName)
             history.push('/room/' + game._id)
           }}
         >Join Game</Button>
