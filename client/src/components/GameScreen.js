@@ -46,6 +46,7 @@ const GAME_DATA = gql`
             started
             question
             questions{
+                _id
                 question
                 answers
             }
@@ -88,8 +89,10 @@ class GameScreen extends React.Component {
             if (loading) return 'Loading...'
             if (error) return `Error! ${error.message}`
 
+            console.log(data)
             const game = data.getGame
-
+            console.log(game.question)
+            console.log(game.questions)
             return (
               <GameScreenContainer>
                 <div>

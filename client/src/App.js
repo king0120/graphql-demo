@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import GamesListScreen from './components/GamesListScreen'
 import WaitingRoom from './components/WaitingRoom'
 import GameScreen from './components/GameScreen'
-import Provider from './Provider'
+import { Provider } from './Provider'
 
 
 class App extends Component {

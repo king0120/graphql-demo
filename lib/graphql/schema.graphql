@@ -40,7 +40,7 @@ type Mutation {
     newGame(playerName: String!): Game
     joinGame(playerName: String!, gameId: ID!): Game
     startGame(gameId: ID!): Game
-    submitAnswer(gameId: ID!, questionId: ID!, playerName: String!, answer: String!): AnswerResponse
+    submitAnswer(gameId: ID!, questionId: ID!, playerId: ID!, answer: String!): AnswerResponse
 }
 
 type Subscription {

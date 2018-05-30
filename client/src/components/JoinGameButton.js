@@ -4,6 +4,7 @@ import { Mutation } from 'react-apollo'
 import faker from 'faker'
 import Button from '@material-ui/core/es/Button/Button'
 import { withRouter } from 'react-router-dom'
+import { Context } from '../Provider'
 
 const JOIN_GAME = gql`
     mutation joinGame($playerName: String!, $gameId: ID!) {
@@ -19,23 +20,36 @@ const JOIN_GAME = gql`
 const JoinGameButton = ({ game, history }) => {
 
   return (
-    <Mutation mutation={JOIN_GAME}>
-      {(joinGame, { data }) => (
-        <Button
-          onClick={() => {
-            const playerName = faker.internet.userName()
-            joinGame({
-              variables: {
-                gameId: game._id,
-                playerName
-              }
-            })
-            localStorage.setItem('player-name', playerName)
+    <Context.Consumer>
+      {context => (
+        <Mutation
+          mutation={JOIN_GAME}
+          update={(cache, {data}) => {
+            const newPlayer = data.joinGame.players[data.joinGame.players.length - 1]
+            context.updatePlayerId(newPlayer._id)
             history.push('/room/' + game._id)
           }}
-        >Join Game</Button>
+        >
+          {(joinGame, response) => {
+            return (
+              <Button
+                onClick={() => {
+                  console.log('MUTATING')
+                  const playerName = faker.internet.userName()
+                  joinGame({
+                    variables: {
+                      gameId: game._id,
+                      playerName
+                    }
+                  })
+                }}
+              >Join Game</Button>
+            )
+          }
+          }
+        </Mutation>
       )}
-    </Mutation>
+    </Context.Consumer>
   )
 }
 
