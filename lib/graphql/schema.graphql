@@ -3,32 +3,44 @@ type Player {
     name: String
     color: String
     points: Int
+    eliminated: Boolean
 }
 
 type Game {
     _id: ID!
+    question: Int
     players: [Player]
+    questions: [Question]
     started: Boolean
 }
 
 type Question {
-    category: String,
-    type: String,
-    difficulty: String,
-    question: String,
-    correct_answer: String,
-    incorrect_answers: [String]
+    _id: ID!
+    category: String
+    type: String
+    difficulty: String
+    question: String
+    correct_answer: String
+    answers: [String]
 }
 
 type Query {
     trivia(limit: Int): [Question]
     getGame(_id: ID!): Game
     games: [Game]
+    nextQuestion(gameId: ID!): Question
+}
+
+type AnswerResponse {
+    correct: Boolean
+    correct_answer: String
 }
 
 type Mutation {
     newGame(playerName: String!): Game
     joinGame(playerName: String!, gameId: ID!): Game
+    startGame(gameId: ID!): Game
+    submitAnswer(gameId: ID!, questionId: ID!, playerId: ID!, answer: String!): AnswerResponse
 }
 
 type Subscription {

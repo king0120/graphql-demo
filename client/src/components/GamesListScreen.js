@@ -43,7 +43,7 @@ const GamesListScreen = (props) => {
           <div>
             <Header title={'Join A Game'}/>
 
-            {games.map(game => (
+            {data && data.games && games.map(game => (
               <StyledCard key={game._id}>
                 <CardContent>
                   <div>
