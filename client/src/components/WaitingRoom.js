@@ -2,7 +2,7 @@ import React from 'react'
 import Header from './common/Header'
 import { Query, Subscription } from 'react-apollo'
 import gql from 'graphql-tag'
-import StartGameButton from "./StartGameButton";
+import StartGameButton from './StartGameButton'
 
 const PLAYER_ADDED = gql`
     subscription playerAdded($gameId: ID!){
@@ -29,7 +29,7 @@ const WaitingRoom = (props) => {
         const gameData = data.getGame
         if (loading) return 'Loading...'
         if (error) return `Error! ${error.message}`
-        console.log(gameData.players)
+
         const playersInRoom = [ ...gameData.players ]
         return (
           <Subscription
@@ -51,7 +51,7 @@ const WaitingRoom = (props) => {
                       <li key={i}>{player.name}</li>
                     ))}
                   </ul>
-                    <StartGameButton gameId={props.match.params.gameId}/>
+                  <StartGameButton gameId={props.match.params.gameId}/>
                 </div>
               )
             }}

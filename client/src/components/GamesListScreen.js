@@ -22,6 +22,7 @@ const GET_GAMES = gql`
     {
         games {
             _id
+            started
             players {
                 name
                 color
@@ -54,7 +55,7 @@ const GamesListScreen = (props) => {
                       Players: {game.players.length}/4
                     </h4>
                   </div>
-                  {game.players.length < 4
+                  {game.players.length < 4 && !game.started
                     ? <JoinGameButton game={game}/>
                     : null
                   }

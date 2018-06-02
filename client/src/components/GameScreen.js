@@ -4,6 +4,7 @@ import Button from '@material-ui/core/es/Button/Button'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import AnswerButton from './AnswerButton'
+import Timer from './Timer'
 
 
 const GameScreenContainer = styled.div`
@@ -60,78 +61,66 @@ const GAME_DATA = gql`
 `
 
 class GameScreen extends React.Component {
-    state = {
-      countdown: 10
-    }
+  render() {
+    return (
+      <Query
+        query={GAME_DATA}
+        variables={{ _id: this.props.match.params.gameId }}
+        pollInterval={10000}
+      >
+        {({loading, error, data, stopPolling}) => {
 
-    componentDidMount() {
-      this.intervalId = setInterval(this.timer, 1000)
-    }
+          if (loading) return 'Loading...'
+          if (error) return `Error! ${error.message}`
 
-    timer = () => {
-      this.setState({
-        countdown: this.state.countdown - 1
-      })
-      if (this.state.countdown < 1) {
-        clearInterval(this.intervalId)
-      }
-    }
+          console.log(data)
+          const game = data.getGame
 
-    render() {
-      return (
-        <Query
-          query={GAME_DATA}
-          variables={{ _id: this.props.match.params.gameId }}
-          pollInterval={10000}
-        >
-          {({loading, error, data}) => {
+          const numberOfPlayersRemaining = game.players.filter(p => !p.eliminated).length
 
-            if (loading) return 'Loading...'
-            if (error) return `Error! ${error.message}`
+          if (numberOfPlayersRemaining === 0) {
+            stopPolling()
+            console.log('GAME OVER')
+          }
+          const currentQuestion = game.questions[game.questions.length - 1]
 
-            console.log(data)
-            const game = data.getGame
-            console.log(game.question)
-            console.log(game.questions)
-            return (
-              <GameScreenContainer>
-                <div>
-                  <h1>Question {game.question + 1}</h1>
-                  <h3>{this.state.countdown}</h3>
-                </div>
+          return (
+            <GameScreenContainer>
+              <div>
+                <h1>Question {game.questions.length}</h1>
+                <Timer />
+              </div>
+              <div>
+                {currentQuestion.question}
+              </div>
+              <ButtonContainer>
+                {currentQuestion.answers.map((answer, i) => (
+                  <AnswerButton
+                    key={i}
+                    gameId={this.props.match.params.gameId}
+                    questionId={currentQuestion._id}
+                    answer={answer}
+                  />
+                ))}
+              </ButtonContainer>
 
-                <div>
-                  {game.questions[game.question].question}
-                </div>
-                <ButtonContainer>
-                  {game.questions[game.question].answers.map((answer, i) => (
-                    <AnswerButton
-                      key={i}
-                      gameId={this.props.match.params.gameId}
-                      questionId={game.questions[game.question]._id}
-                      playerName={this.state.playerName}
-                      answer={answer}
-                    />
+              <PlayersContainer>
+                <h2>Remaining Players</h2>
+                <div className='players'>
+                  {game.players.map(player => (
+                    <PlayerStyle key={player._id} eliminated={player.eliminated}>
+                      {player.name}
+                    </PlayerStyle>
                   ))}
-                </ButtonContainer>
-
-                <PlayersContainer>
-                  <h2>Remaining Players</h2>
-                  <div className='players'>
-                    {game.players.map(player => (
-                      <PlayerStyle key={player._id} eliminated={player.eliminated}>
-                        {player.name}
-                      </PlayerStyle>
-                    ))}
-                  </div>
-                </PlayersContainer>
-              </GameScreenContainer>
-            )
-          }
-          }
-        </Query>
-      )
-    }
+                </div>
+              </PlayersContainer>
+            </GameScreenContainer>
+          )
+        }
+        }
+      </Query>
+    )
+  }
 
 }
 

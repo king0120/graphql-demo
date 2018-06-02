@@ -28,7 +28,6 @@ type Query {
     trivia(limit: Int): [Question]
     getGame(_id: ID!): Game
     games: [Game]
-    nextQuestion(gameId: ID!): Question
 }
 
 type AnswerResponse {

@@ -23,16 +23,17 @@ const StartGameButton = ({ gameId, history }) => {
   return (
     <Mutation mutation={START_GAME}>
       {(startGame, { data }) => {
+        if (data) {
+          console.log(data)
+          console.log('complete!')
+          history.push('/game/' + gameId)
+        }
         return (
           <Button
             onClick={() => {
               startGame({
                 variables: {
                   gameId: gameId
-                },
-                onCompleted: () => {
-                  console.log('complete!')
-                  history.push('/game/' + gameId)
                 }
               })
             }}
