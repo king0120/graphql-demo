@@ -1,6 +1,7 @@
 type Player {
     _id: ID!
     name: String
+    host: Boolean
     color: String
     points: Int
     eliminated: Boolean

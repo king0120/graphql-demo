@@ -16,48 +16,61 @@ const GET_GAME = gql`
     query getGame($_id: ID!) {
         getGame(_id: $_id){
             _id
+            started
             players {
               name
             }
         }    
     }
 `
-const WaitingRoom = (props) => {
-  return (
-    <Query query={GET_GAME} variables={{ _id: props.match.params.gameId }}>
-      { ({ loading, error, data }) => {
-        const gameData = data.getGame
-        if (loading) return 'Loading...'
-        if (error) return `Error! ${error.message}`
 
-        const playersInRoom = [ ...gameData.players ]
+const room = ({ loading, error, data }, props) => {
+  const gameData = data.getGame
+  if (loading) return 'Loading...'
+  if (error) return `Error! ${error.message}`
+
+  const gameId = props.match.params.gameId
+
+  if (gameData && gameData.started) {
+    props.history.push(`/game/${gameId}`)
+  }
+  const playersInRoom = [ ...gameData.players ]
+  return (
+    <Subscription
+      subscription={PLAYER_ADDED}
+      variables={{gameId}}
+    >
+      {({ data, loading }) => {
+        console.log(!loading && data.playerAdded.name)
+        if (!loading &&
+          !playersInRoom.find(player => player.name === data.playerAdded.name)) {
+          playersInRoom.push(data.playerAdded)
+        }
         return (
-          <Subscription
-            subscription={PLAYER_ADDED}
-            variables={{ gameId: props.match.params.gameId }}
-          >
-            {({ data, loading }) => {
-              console.log(!loading && data.playerAdded.name)
-              if (!loading &&
-                  !playersInRoom.find(player => player.name === data.playerAdded.name)) {
-                playersInRoom.push(data.playerAdded)
-              }
-              return (
-                <div>
-                  <Header title={'Waiting Room'}/>
-                  <h2>{playersInRoom.length}/4 Players Available</h2>
-                  <ul>
-                    {playersInRoom.map((player, i) => (
-                      <li key={i}>{player.name}</li>
-                    ))}
-                  </ul>
-                  <StartGameButton gameId={props.match.params.gameId}/>
-                </div>
-              )
-            }}
-          </Subscription>
+          <div>
+            <Header title={'Waiting Room'}/>
+            <h2>{playersInRoom.length}/4 Players Available</h2>
+            <ul>
+              {playersInRoom.map((player, i) => (
+                <li key={i}>{player.name}</li>
+              ))}
+            </ul>
+            <StartGameButton gameId={gameId}/>
+          </div>
         )
       }}
+    </Subscription>
+  )
+}
+
+const WaitingRoom = (props) => {
+  return (
+    <Query
+      query={GET_GAME}
+      variables={{ _id: props.match.params.gameId }}
+      pollInterval={500}
+    >
+      {(data) => room(data, props)}
     </Query>
   )
 }
