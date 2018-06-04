@@ -1,7 +1,6 @@
 type Player {
     _id: ID!
     name: String
-    host: Boolean
     color: String
     points: Int
     eliminated: Boolean
@@ -10,6 +9,7 @@ type Player {
 type Game {
     _id: ID!
     question: Int
+    host: String
     players: [Player]
     questions: [Question]
     started: Boolean
@@ -25,16 +25,18 @@ type Question {
     answers: [String]
 }
 
-type Query {
-    trivia(limit: Int): [Question]
-    getGame(_id: ID!): Game
-    games: [Game]
-}
-
 type AnswerResponse {
     correct: Boolean
     correct_answer: String
 }
+
+type Query {
+    trivia(limit: Int): [Question]
+    getGame(_id: ID!, playerId: ID): Game
+    games: [Game]
+}
+
+
 
 type Mutation {
     newGame(playerName: String!): Game

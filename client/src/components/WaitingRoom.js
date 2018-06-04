@@ -16,6 +16,7 @@ const GET_GAME = gql`
     query getGame($_id: ID!) {
         getGame(_id: $_id){
             _id
+            host
             started
             players {
               name
@@ -55,7 +56,7 @@ const room = ({ loading, error, data }, props) => {
                 <li key={i}>{player.name}</li>
               ))}
             </ul>
-            <StartGameButton gameId={gameId}/>
+            <StartGameButton gameId={gameId} host={gameData.host}/>
           </div>
         )
       }}

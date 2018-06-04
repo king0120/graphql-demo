@@ -13,38 +13,51 @@ const SUBMIT_ANSWER = gql`
     }
 `
 
-const AnswerButton = ({ gameId, questionId, answer }) => {
-  return (
-    <Context.Consumer>
-      {context => (
-        <Mutation mutation={SUBMIT_ANSWER}>
-          {(submitAnswer, { data }) => {
-            let color = 'default'
+class AnswerButton extends React.Component {
+  state = {
+    color: 'default'
+  }
 
-            if (data && data.submitAnswer.correct) {
-              color = 'primary'
-            } else if (data && !data.submitAnswer.correct) {
-              color = 'secondary'
-            }
-            return (
-              <Button variant="raised" size="small" color={color}
-                onClick={() => {
-                  submitAnswer({
-                    variables: {
-                      gameId,
-                      questionId,
-                      answer,
-                      playerId: context.state.playerId
-                    }
-                  })
-                }}
-              >{answer}</Button>
-            )
-          }}
-        </Mutation>
-      )}
-    </Context.Consumer>
-  )
+  getDerivedStateFromProps(nextProps) {
+    if (this.props.answer !== nextProps.answer) {
+      this.setState('default')
+    }
+  }
+
+  render() {
+    const { gameId, questionId, answer } = this.props
+    return (
+      <Context.Consumer>
+        {context => (
+          <Mutation mutation={SUBMIT_ANSWER}>
+            {(submitAnswer, { data }) => {
+
+              if (data && data.submitAnswer.correct) {
+                this.setState({color: 'primary'})
+              } else if (data && !data.submitAnswer.correct) {
+                this.setState({color: 'secondary'})
+              }
+              return (
+                <Button variant="raised" size="small" color={this.state.color}
+                  onClick={() => {
+                    submitAnswer({
+                      variables: {
+                        gameId,
+                        questionId,
+                        answer,
+                        playerId: context.state.playerId
+                      }
+                    })
+                  }}
+                >{answer}</Button>
+              )
+            }}
+          </Mutation>
+        )}
+      </Context.Consumer>
+    )
+  }
+
 }
 
 export default AnswerButton
